@@ -15,10 +15,10 @@ module.exports.contests = fetch('https://atcoder.jp/contests/').then(res => res.
             }
 
             if (contest.length == 4) {
-                const startTime = moment(contest[0].split('iso=')[1].split('&')[0]).add(-1, 'hour');
+                const startTime = moment(contest[0].split('iso=')[1].split('&')[0]).add(-1, 'h');
                 const length = contest[2].split(':');
 
-                contests.push([contest[1], startTime, moment(startTime).add(length[0], 'hours').add(length[1], "minutes")]);
+                contests.push([contest[1], startTime, moment(startTime).add(length[0], 'h').add(length[1], 'm')]);
                 contest = [];
             }
         });
