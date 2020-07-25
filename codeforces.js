@@ -3,7 +3,10 @@ const moment = require('moment');
 
 module.exports.name = 'Codeforces';
 
-module.exports.contests = fetch('https://codeforces.com/api/contest.list').then(res => res.text()).then((body) => {
+// Because of the Internet connection to Codeforces in China,
+// you may need to use a mirror site such as codeforces[dot]ml and codeforc[dot]es.
+
+module.exports.contests = fetch('https://codeforc.es/api/contest.list').then(res => res.text()).then((body) => {
     let contests = [];
 
     JSON.parse(body)['result'].filter((el) => el['phase'] === 'BEFORE').forEach((el) => {
