@@ -3,11 +3,11 @@ const moment = require('moment');
 
 module.exports.name = '洛谷';
 
-module.exports.contests = fetch('https://www.luogu.com.cn/contest/list').then(res => res.text()).then((body) => {
+module.exports.contests = fetch('https://www.luogu.com.cn/contest/list?_contentOnly=1').then(res => res.text()).then((body) => {
     let contests = [];
 
-    JSON.parse(decodeURIComponent(body.split('decodeURIComponent("')[1].split('"')[0])).currentData.contests.result.forEach((el) => {
-        const startTime = moment(el['startTime'] * 1000);
+    JSON.parse(body).currentData.contests.result.forEach((el) => {
+        const startTQime = moment(el['startTime'] * 1000);
 
         if (startTime >= moment()) {
             contests.push([el['name'], startTime, moment(el['endTime'] * 1000)]);
