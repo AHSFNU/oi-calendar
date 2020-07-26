@@ -7,7 +7,7 @@ module.exports.contests = fetch('https://www.luogu.com.cn/contest/list?_contentO
     let contests = [];
 
     JSON.parse(body).currentData.contests.result.forEach((el) => {
-        const startTQime = moment(el['startTime'] * 1000);
+        const startTime = moment(el['startTime'] * 1000);
 
         if (startTime >= moment()) {
             contests.push([el['name'], startTime, moment(el['endTime'] * 1000)]);
