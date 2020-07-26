@@ -6,7 +6,6 @@
   "license": "MIT",
   "dependencies": {
     "koa": "^2.13.0",
-    "koa-router": "^9.1.0",
     "moment": "^2.27.0",
     "node-fetch": "^2.6.0"
   }

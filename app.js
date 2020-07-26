@@ -1,6 +1,5 @@
 const fs = require('fs');
 const Koa = require('koa');
-const { COPYFILE_EXCL } = require('constants');
 
 const contests = [];
 
