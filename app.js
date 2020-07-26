@@ -14,8 +14,17 @@ Promise.all(fs.readdirSync('.').filter((file) => file.endsWith('.js') && file !=
     app.use(async (ctx) => {
         ctx.body = {
             'status': 'OK',
-            'contests': contests
+            'contests': []
         };
+
+        contests.forEach((el) => {
+            ctx.body.contests.push({
+                'oj': el[0],
+                'name': el[1],
+                'startTime': el[2],
+                'endTime': el[3]
+            });
+        });
     });
 
     app.listen(8080);
