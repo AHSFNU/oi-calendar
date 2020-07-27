@@ -1,5 +1,5 @@
 [Unit]
-Description="oi-calender deamon"
+Description="oi-calendar deamon"
 
 [Service]
 Type=simple
