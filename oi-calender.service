@@ -1,0 +1,14 @@
+[Unit]
+Description="oi-calender deamon"
+
+[Service]
+Type=simple
+User=Suyun
+ExecStart=node app.js
+ExecStop=kill -TREM $MAINPID
+WatchdogSec=1800
+Restart=on-failure
+WorkingDirectory=/home/Suyun/oi-calendar
+
+[Install]
+WantedBy=multi-user.target
