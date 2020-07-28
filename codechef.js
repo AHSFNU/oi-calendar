@@ -3,7 +3,7 @@ const moment = require('moment');
 
 module.exports.name = 'CodeChef';
 
-module.exports.contests = fetch('https://www.codechef.com/contests/').then(res => res.text()).then((body) => {
+module.exports.contests = fetch('https://www.codechef.com/contests/').then(res => res.text()).then(body => {
     let contests = [], contest = [];
 
     body.split('<h3 id="future-contests">Future Contests</h3>')[1].split('<h3 id="past-contests">Past Contests</h3>')[0].split('<tbody>')[1].split('</tbody>')[0].split('\n').forEach((el) => {

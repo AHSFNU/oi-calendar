@@ -3,7 +3,7 @@ const moment = require('moment');
 
 module.exports.name = 'AtCoder';
 
-module.exports.contests = fetch('https://atcoder.jp/contests/').then(res => res.text()).then((body) => {
+module.exports.contests = fetch('https://atcoder.jp/contests/').then(res => res.text()).then(body => {
     try {
         let contests = [], contest = [];
 

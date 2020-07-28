@@ -3,7 +3,7 @@ const moment = require('moment');
 
 module.exports.name = '牛客';
 
-module.exports.contests = fetch('https://ac.nowcoder.com/acm/contest/vip-index').then(res => res.text()).then((body) => {
+module.exports.contests = fetch('https://ac.nowcoder.com/acm/contest/vip-index').then(res => res.text()).then(body => {
     let contests = [], contest = [];
     let isContestTime = false;
 
