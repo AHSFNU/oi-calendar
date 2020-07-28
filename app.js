@@ -2,6 +2,8 @@ const fs = require('fs');
 const Koa = require('koa');
 const moment = require('moment');
 
+const config = require('./config.json');
+
 const contests = [];
 
 Promise.all(fs.readdirSync('.').filter((file) => file.endsWith('.js') && file != 'app.js').map((file) => {
@@ -28,5 +30,5 @@ Promise.all(fs.readdirSync('.').filter((file) => file.endsWith('.js') && file !=
         });
     });
 
-    app.listen(8080);
+    app.listen(config.port);
 ;});
