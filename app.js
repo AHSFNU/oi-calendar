@@ -1,5 +1,6 @@
 const fs = require('fs');
 const Koa = require('koa');
+const moment = require('moment');
 
 const contests = [];
 
@@ -13,6 +14,7 @@ Promise.all(fs.readdirSync('.').filter((file) => file.endsWith('.js') && file !=
     app.use(async (ctx) => {
         ctx.body = {
             'status': 'OK',
+            'lastUpdateTime': moment(),
             'contests': []
         };
 
