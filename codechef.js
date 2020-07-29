@@ -1,22 +1,27 @@
 const fetch = require('node-fetch');
 const moment = require('moment');
+const cheerio = require('cheerio');
 
 module.exports.name = 'CodeChef';
 
 module.exports.contests = fetch('https://www.codechef.com/contests/').then(res => res.text()).then(body => {
-    let contests = [], contest = [];
+    let contests = [];
 
-    body.split('<h3 id="future-contests">Future Contests</h3>')[1].split('<h3 id="past-contests">Past Contests</h3>')[0].split('<tbody>')[1].split('</tbody>')[0].split('\n').forEach((el) => {
-        if (el.indexOf('<a') != -1) {
-            contest.push(el.split('>')[1].split('<')[0]);
-        } else if (el.indexOf('starttime') != -1 || el.indexOf('endtime') != -1) {
-            contest.push(moment(el.split('"')[1]));
-        }
+    const $ = cheerio.load(body);
 
-        if (contest.length == 3) {
-            contests.push(contest);
-            contest = [];
-        }
+    $('#future-contests+div>table>tbody>tr').each((index, tr) => {
+        let meta = {};
+
+        $(tr).find('td').each((index, td) => {
+            const $td = $(td);
+            switch (index) {
+                case 1: meta.name = $td.find('a').text(); break;
+                case 2: meta.startTime = $td.attr('data-starttime'); break;
+                case 3: meta.endTime = $td.attr('data-endtime'); break;
+            }
+        });
+
+        contests.push([meta.name, moment(meta.startTime), moment(meta.endTime)]);
     });
 
     return contests;
