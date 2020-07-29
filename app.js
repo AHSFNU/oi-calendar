@@ -10,24 +10,17 @@ Promise.all(fs.readdirSync('.').filter((file) => file.endsWith('.js') && file !=
     const oj = require(`./${file}`);
     return oj.contests.then(list => list.forEach((el) => contests.push([oj.name, ...el])));
 })).then(() => {
+    const updateTime = moment();
+
     contests.sort((a, b) => a[2] - b[2]);
 
     const app = new Koa;
     app.use(async (ctx) => {
         ctx.body = {
             'status': 'OK',
-            'lastUpdateTime': moment(),
-            'contests': []
+            'lastUpdateTime': updateTime,
+            'contests': contests.map(([oj, name, startTime, endTime]) => ({ oj, name, startTime, endTime }))
         };
-
-        contests.forEach((el) => {
-            ctx.body.contests.push({
-                'oj': el[0],
-                'name': el[1],
-                'startTime': el[2],
-                'endTime': el[3]
-            });
-        });
     });
 
     app.listen(config.port);
