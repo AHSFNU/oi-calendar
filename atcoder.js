@@ -1,26 +1,30 @@
 const fetch = require('node-fetch');
 const moment = require('moment');
+const cheerio = require('cheerio');
 
 module.exports.name = 'AtCoder';
 
 module.exports.contests = fetch('https://atcoder.jp/contests/').then(res => res.text()).then(body => {
     try {
-        let contests = [], contest = [];
+        let contests = [];
 
-        body.split('<h3>Upcoming Contests</h3>')[1].split('<h3>Recent Contests</h3>')[0].split('\n').forEach((el) => {
-            if (el.indexOf('<td class="text-center">') != -1) {
-                contest.push(el.split('\t\t\t\t<td class="text-center">')[1].split('</td>')[0]);
-            } else if (el.indexOf('<a') != -1) {
-                contest.push(el.split('\t\t\t\t\t<a href="')[1].split('">')[1].split('</a>')[0]);
-            }
+        const $ = cheerio.load(body);
 
-            if (contest.length == 4) {
-                const startTime = moment(contest[0].split('iso=')[1].split('&')[0]).add(-1, 'h');
-                const length = contest[2].split(':');
+        $('#contest-table-upcoming table>tbody>tr').each((index, tr) => {
+            let meta = {};
 
-                contests.push([contest[1], startTime, moment(startTime).add(length[0], 'h').add(length[1], 'm')]);
-                contest = [];
-            }
+            $(tr).find('td').each((index, td) => {
+                const $td = $(td);
+                switch (index) {
+                    case 0: meta.startTime = $td.find('time').text(); break;
+                    case 1: meta.name = $td.find('a').text(); break;
+                    case 2: meta.duration = $td.text(); break;
+                }
+            });
+
+            const startTime = moment(meta.startTime);
+            const endTime = moment(startTime).add(meta.duration);
+            contests.push([meta.name, startTime, endTime]);
         });
 
         return contests;
