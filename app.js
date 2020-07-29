@@ -5,6 +5,7 @@ const moment = require('moment');
 const config = require('./config.json');
 
 const contests = [];
+const lastUpdateTime = moment();
 
 Promise.all(fs.readdirSync('.').filter((file) => file.endsWith('.js') && file != 'app.js').map((file) => {
     const oj = require(`./${file}`);
@@ -16,7 +17,7 @@ Promise.all(fs.readdirSync('.').filter((file) => file.endsWith('.js') && file !=
     app.use(async (ctx) => {
         ctx.body = {
             'status': 'OK',
-            'lastUpdateTime': moment(),
+            'lastUpdateTime': lastUpdateTime,
             'contests': []
         };
 
