@@ -1,5 +1,6 @@
 const fs = require('fs');
 const Koa = require('koa');
+const cors = require('@koa/cors');
 const moment = require('moment');
 
 const config = require('./config.json');
@@ -15,6 +16,7 @@ Promise.all(fs.readdirSync('.').filter((file) => file.endsWith('.js') && file !=
     contests.sort((a, b) => a[2] - b[2]);
 
     const app = new Koa;
+    app.use(cors());
     app.use(async (ctx) => {
         ctx.body = {
             'status': 'OK',
