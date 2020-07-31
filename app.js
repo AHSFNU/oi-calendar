@@ -7,7 +7,7 @@ const config = require('./config.json');
 
 const contests = [];
 
-Promise.all(fs.readdirSync('.').filter((file) => file.endsWith('.js') && file != 'app.js').map((file) => {
+Promise.all(config.enabled_oj.map(file => {
     const oj = require(`./${file}`);
     return oj.contests.then(list => list.forEach(el => contests.push({ oj: oj.name, ...el })));
 })).then(() => {
