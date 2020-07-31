@@ -24,7 +24,7 @@ module.exports.contests = fetch('https://atcoder.jp/contests/').then(res => res.
 
             const startTime = moment(meta.startTime);
             const endTime = moment(startTime).add(meta.duration);
-            contests.push([meta.name, startTime, endTime]);
+            contests.push({ name: meta.name, startTime, endTime });
         });
 
         return contests;

@@ -21,7 +21,11 @@ module.exports.contests = fetch('https://www.codechef.com/contests/').then(res =
             }
         });
 
-        contests.push([meta.name, moment(meta.startTime), moment(meta.endTime)]);
+        contests.push({
+            name: meta.name,
+            startTime: moment(meta.startTime),
+            endTime: moment(meta.endTime)
+        });
     });
 
     return contests;
