@@ -11,7 +11,12 @@ module.exports.contests = fetch('https://www.luogu.com.cn/contest/list?_contentO
         const endTime = moment(el['endTime'] * 1000);
 
         if (startTime >= moment()) {
-            contests.push({ name: el['name'], startTime, endTime });
+            contests.push({
+                id: el['id'],
+                name: el['name'],
+                url: `https://www.luogu.com.cn/contest/${el['id']}`,
+                startTime, endTime
+            });
         }
     });
 
