@@ -1,0 +1,6 @@
+{
+    "enabled_oj": [
+        "atcoder", "codechef", "codeforces", "luogu", "nowcoder"
+    ],
+    "port": 8080
+}

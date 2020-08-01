@@ -17,14 +17,20 @@ module.exports.contests = fetch('https://atcoder.jp/contests/').then(res => res.
                 const $td = $(td);
                 switch (index) {
                     case 0: meta.startTime = $td.find('time').text(); break;
-                    case 1: meta.name = $td.find('a').text(); break;
+                    case 1: {
+                        const $a = $td.find('a');
+                        meta.id = $a.attr('href').split('/').pop();
+                        meta.name = $a.text();
+                        meta.url = `https://atcoder.jp/contest/${meta.id}`;
+                        break;
+                    }
                     case 2: meta.duration = $td.text(); break;
                 }
             });
 
             const startTime = moment(meta.startTime);
             const endTime = moment(startTime).add(meta.duration);
-            contests.push([meta.name, startTime, endTime]);
+            contests.push({ name: meta.name, startTime, endTime });
         });
 
         return contests;

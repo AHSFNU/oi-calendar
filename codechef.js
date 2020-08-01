@@ -15,13 +15,17 @@ module.exports.contests = fetch('https://www.codechef.com/contests/').then(res =
         $(tr).find('td').each((index, td) => {
             const $td = $(td);
             switch (index) {
+                case 0:
+                    meta.id = $td.text();
+                    meta.url = `https://www.codechef.com/${meta.id}`;
+                    break;
                 case 1: meta.name = $td.find('a').text(); break;
-                case 2: meta.startTime = $td.attr('data-starttime'); break;
-                case 3: meta.endTime = $td.attr('data-endtime'); break;
+                case 2: meta.startTime = moment($td.attr('data-starttime')); break;
+                case 3: meta.endTime = moment($td.attr('data-endtime')); break;
             }
         });
 
-        contests.push([meta.name, moment(meta.startTime), moment(meta.endTime)]);
+        contests.push(meta);
     });
 
     return contests;

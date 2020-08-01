@@ -8,9 +8,15 @@ module.exports.contests = fetch('https://www.luogu.com.cn/contest/list?_contentO
 
     JSON.parse(body).currentData.contests.result.forEach((el) => {
         const startTime = moment(el['startTime'] * 1000);
+        const endTime = moment(el['endTime'] * 1000);
 
         if (startTime >= moment()) {
-            contests.push([el['name'], startTime, moment(el['endTime'] * 1000)]);
+            contests.push({
+                id: el['id'],
+                name: el['name'],
+                url: `https://www.luogu.com.cn/contest/${el['id']}`,
+                startTime, endTime
+            });
         }
     });
 

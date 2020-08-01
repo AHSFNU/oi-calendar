@@ -10,7 +10,14 @@ module.exports.contests = fetch('https://codeforces.com/api/contest.list').then(
     let contests = [];
 
     JSON.parse(body)['result'].filter((el) => el['phase'] === 'BEFORE').forEach((el) => {
-        contests.push([el['name'], moment(el['startTimeSeconds'] * 1000), moment(el['startTimeSeconds'] * 1000).add(el['durationSeconds'], 's')]);
+        const startTime = moment(el['startTimeSeconds'] * 1000);
+        contests.push({
+            id: el['id'],
+            name: el['name'],
+            url: `https://codeforces.com/contests/${el['id']}`,
+            startTime: startTime,
+            endTime: moment(startTime).add(el['durationSeconds'], 's')
+        });
     });
 
     return contests;

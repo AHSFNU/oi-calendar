@@ -7,11 +7,14 @@ const config = require('./config.json');
 
 const contests = [];
 
-Promise.all(fs.readdirSync('.').filter((file) => file.endsWith('.js') && file != 'app.js').map((file) => {
+Promise.all(config.enabled_oj.map(file => {
     const oj = require(`./${file}`);
-    return oj.contests.then(list => list.forEach((el) => contests.push([oj.name, ...el])));
+    return oj.contests.then(list => {
+        console.log(`Loaded: ${oj.name}, ${list.length} contests`);
+        return list.forEach(el => contests.push({ oj: oj.name, ...el }));
+    });
 })).then(() => {
-    contests.sort((a, b) => a[2] - b[2]);
+    contests.sort((a, b) => a.startTime - b.startTime);
 
     const app = new Koa;
     app.use(cors());
@@ -21,9 +24,14 @@ Promise.all(fs.readdirSync('.').filter((file) => file.endsWith('.js') && file !=
         ctx.body = {
             'status': 'OK',
             'lastUpdateTime': lastUpdateTime,
-            'contests': contests.map(([oj, name, startTime, endTime]) => ({ oj, name, startTime, endTime }))
+            'contests': contests
         };
     });
 
-    app.listen(config.port);
-;});
+    app.listen(config.port, () => {
+        console.log(`Server listening on port ${config.port}...`);
+    });
+}).catch(err => {
+    console.error(err);
+    process.exit(1);
+});
