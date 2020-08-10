@@ -16,17 +16,17 @@ module.exports.contests = fetch('https://uoj.ac/contests').then(res => res.text(
             const $td = $(td);
             switch (index) {
                 case 0: {
-                  let $a = $td.children('a');
-                  meta.id = parseInt($a.attr('href').split('/').pop());
-                  meta.name = $a.text();
-                  meta.url = `https://uoj.ac/contest/${meta.id}`;
-                  break;
+                    let $a = $td.children('a');
+                    meta.id = parseInt($a.attr('href').split('/').pop());
+                    meta.name = $a.text();
+                    meta.url = `https://uoj.ac/contest/${meta.id}`;
+                    break;
                 }
                 case 1: meta.startTime = moment($td.find('a').text()); break;
                 case 2: {
-                  let hours = $td.text().match(/^([\d.]+) .+$/)[1];
-                  meta.endTime = moment(meta.startTime).add(hours, 'h');
-                  break;
+                    let hours = $td.text().match(/^([\d.]+) .+$/)[1];
+                    meta.endTime = moment(meta.startTime).add(hours, 'h');
+                    break;
                 }
             }
         });
