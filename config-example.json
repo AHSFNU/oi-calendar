@@ -1,6 +1,6 @@
 {
     "enabled_oj": [
-        "atcoder", "codechef", "codeforces", "luogu", "nowcoder", "uoj"
+        "atcoder", "codechef", "codeforces", "luogu", "nowcoder", "uoj", "loj"
     ],
     "port": 8080
 }
