@@ -3,6 +3,10 @@ const moment = require('moment');
 const cheerio = require('cheerio');
 
 module.exports.name = 'AtCoder';
+module.exports.icon = {
+    url: 'https://atcoder.jp/favicon.ico',
+    variety: ''
+};
 
 module.exports.contests = fetch('https://atcoder.jp/contests/').then(res => res.text()).then(body => {
     try {

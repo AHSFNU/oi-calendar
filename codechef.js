@@ -3,6 +3,10 @@ const moment = require('moment');
 const cheerio = require('cheerio');
 
 module.exports.name = 'CodeChef';
+module.exports.icon = {
+    url: 'https://www.codechef.com/misc/favicon.ico',
+    variety: 'circular'
+};
 
 module.exports.contests = fetch('https://www.codechef.com/contests/').then(res => res.text()).then(body => {
     let contests = [];

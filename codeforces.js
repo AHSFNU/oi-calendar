@@ -2,6 +2,10 @@ const fetch = require('node-fetch');
 const moment = require('moment');
 
 module.exports.name = 'Codeforces';
+module.exports.icon = {
+    url: 'https://sta.codeforces.com/favicon-96x96.png',
+    variety: ''
+};
 
 // Because of the Internet connection to Codeforces in China,
 // you may need to use a mirror site such as codeforces[dot]ml and codeforc[dot]es.

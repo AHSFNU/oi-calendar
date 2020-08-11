@@ -3,6 +3,10 @@ const moment = require('moment');
 const cheerio = require('cheerio');
 
 module.exports.name = 'Libre OJ';
+module.exports.icon = {
+    url: 'https://loj.ac/favicon.ico',
+    variety: ''
+};
 
 module.exports.contests = fetch('https://loj.ac/contests').then(res => res.text()).then(body => {
     let contests = [];

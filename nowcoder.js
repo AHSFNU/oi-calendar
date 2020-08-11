@@ -4,6 +4,10 @@ const cheerio = require('cheerio');
 const { unescape } = require('html-escaper');
 
 module.exports.name = '牛客';
+module.exports.icon = {
+    url: 'https://static.nowcoder.com/images/logo_87_87.png',
+    variety: 'circular'
+};
 
 module.exports.contests = fetch('https://ac.nowcoder.com/acm/contest/vip-index').then(res => res.text()).then(body => {
     let contests = [];
