@@ -5,17 +5,13 @@ const moment = require('moment');
 
 const config = require('./config.json');
 
-const contests = [];
-
 Promise.all(config.enabled_oj.map(file => {
-    const oj = require(`./${file}`);
-    return oj.contests.then(list => {
-        console.log(`Loaded: ${oj.name}, ${list.length} contests`);
-        return list.forEach(el => contests.push({ oj: oj.name, ...el }));
+    const { contests, ...oj } = require(`./${file}`);
+    return contests.then(contests => {
+        console.log(`Loaded: ${oj.name}, ${contests.length} contests`);
+        return { id: file, ...oj, contests };
     });
-})).then(() => {
-    contests.sort((a, b) => a.startTime - b.startTime);
-
+})).then(oj_list => {
     const app = new Koa;
     app.use(cors());
 
@@ -24,7 +20,7 @@ Promise.all(config.enabled_oj.map(file => {
         ctx.body = {
             'status': 'OK',
             'lastUpdateTime': lastUpdateTime,
-            'contests': contests
+            'oj': oj_list
         };
     });
 

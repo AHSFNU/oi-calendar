@@ -2,6 +2,10 @@ const fetch = require('node-fetch');
 const moment = require('moment');
 
 module.exports.name = '洛谷';
+module.exports.icon = {
+    url: 'https://www.luogu.com.cn/favicon.ico',
+    variety: 'circular'
+};
 
 module.exports.contests = fetch('https://www.luogu.com.cn/contest/list?_contentOnly=1').then(res => res.text()).then(body => {
     let contests = [];
