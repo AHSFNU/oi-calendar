@@ -14,9 +14,13 @@ module.exports.contests = fetch('https://uoj.ac/contests').then(res => res.text(
     const $ = cheerio.load(body);
 
     $('.uoj-content>.table-responsive:first-of-type>table>tbody>tr').each((index, tr) => {
+        const $tr = $(tr);
+
+        if ($tr.children('td').length !== 5) return;
+
         let meta = {};
 
-        $(tr).find('td').each((index, td) => {
+        $tr.find('td').each((index, td) => {
             const $td = $(td);
             switch (index) {
                 case 0: {
