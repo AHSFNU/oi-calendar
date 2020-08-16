@@ -5,7 +5,6 @@ Description="oi-calendar deamon"
 Type=simple
 User=nobody
 ExecStart=/path/to/node /path/to/app.js
-ExecStop=kill -TREM $MAINPID
 WatchdogSec=900
 Restart=on-failure
 WorkingDirectory=/path/to/oi-calendar
