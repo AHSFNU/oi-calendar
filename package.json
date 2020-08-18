@@ -11,5 +11,8 @@
     "koa": "^2.13.0",
     "moment": "^2.27.0",
     "node-fetch": "^2.6.0"
+  },
+  "scripts": {
+    "start": "node app.js"
   }
 }
