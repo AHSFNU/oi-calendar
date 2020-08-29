@@ -25,7 +25,7 @@ module.exports.contests = fetch('https://atcoder.jp/contests/').then(res => res.
                         const $a = $td.find('a');
                         meta.id = $a.attr('href').split('/').pop();
                         meta.name = $a.text();
-                        meta.url = `https://atcoder.jp/contest/${meta.id}`;
+                        meta.url = `https://atcoder.jp/contests/${meta.id}`;
                         break;
                     }
                     case 2: meta.endTime = moment(meta.startTime).add($td.text()); break;
