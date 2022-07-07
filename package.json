@@ -9,7 +9,7 @@
     "cheerio": "^1.0.0-rc.3",
     "html-escaper": "^3.0.0",
     "koa": "^2.13.0",
-    "moment": "^2.27.0",
+    "moment": "^2.29.4",
     "node-fetch": "^2.6.0"
   },
   "scripts": {
